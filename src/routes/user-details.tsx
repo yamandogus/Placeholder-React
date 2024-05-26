@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import { Tabs, Tab, Container} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -67,7 +67,7 @@ interface TodosPorps {
 }
 
 export async function loader({ params }: { params: loaderParams }) {
-  const { userId } = params;
+  const { userId} = params;
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/users/${userId}`
   );
@@ -116,6 +116,9 @@ export default function UserDetailsPage() {
   }, [userId]);
 
   if(!todos && !albums && !posts) return <div>Yükleniyor...</div>
+
+
+
   return (
     <>
       {/* <pre>{JSON.stringify(user)}</pre> */}
@@ -131,7 +134,7 @@ export default function UserDetailsPage() {
         <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
           <Tab eventKey="home" title="Posts">
             {posts.map((post) => (
-              <PostList className="mt-3" key={post.userId}>
+              <PostList className="mt-3" key={post.id}>
                 <p>
                   <strong>UserId:</strong> {post.userId}
                 </p>
@@ -140,12 +143,15 @@ export default function UserDetailsPage() {
                 </p>
                 <h5>Title{post.title}</h5>
                 <p>{post.body}</p>
+                <Link to={`/details/${userId}/posts/${post.id}`} className="btn btn-primary">
+                 Comments Details
+                </Link>
               </PostList>
             ))}
           </Tab>
           <Tab eventKey="profile" title="Albums">
             {albums.map((album) => (
-              <PostList className="mt-3" key={album.userId}>
+              <PostList className="mt-3" key={album.id}>
                 <p>
                   User Id: {album.userId} <br /> <br />
                   Album id: {album.id}
@@ -157,9 +163,9 @@ export default function UserDetailsPage() {
               </PostList>
             ))}
           </Tab>
-          <Tab eventKey="contact" title="Contact">
+          <Tab eventKey="contact" title="Todos">
             {todos.map((todo) => (
-              <PostList className="mt-3" key={todo.userId}>
+              <PostList className="mt-3" key={todo.id}>
                 <p>
                   User Id: {todo.userId} <br /> <br />
                   Album id: {todo.id}
