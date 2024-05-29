@@ -3,7 +3,7 @@ import { Tabs, Tab, Container} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const UsersContainer = styled.div`
+export const UsersContainer = styled.div`
   padding: 10px;
   border: 1px solid black;
   width: 300px;
@@ -11,14 +11,14 @@ const UsersContainer = styled.div`
   background-color: #d2e8ff;
 `;
 
-const PostList = styled.div`
+export const PostList = styled.div`
   padding: 16px;
   border: 1px solid black;
   border-radius: 5px;
   background-color: #d2e8ff;
 `;
 
-interface User {
+export interface User {
   id: number;
   name: string;
   username: string;
@@ -143,7 +143,7 @@ export default function UserDetailsPage() {
                 </p>
                 <h5>Title{post.title}</h5>
                 <p>{post.body}</p>
-                <Link to={`/details/${userId}/posts/${post.id}`} className="btn btn-primary">
+                <Link to={`/users/${userId}/posts/${post.id}`} className="btn btn-primary">
                  Comments Details
                 </Link>
               </PostList>
@@ -160,6 +160,7 @@ export default function UserDetailsPage() {
                   <strong>Album Name: </strong>
                   {album.title}
                 </p>
+                <Link to={`/users/${userId}/albums/${album.id}`}>Albums</Link>
               </PostList>
             ))}
           </Tab>

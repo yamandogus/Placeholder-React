@@ -47,7 +47,7 @@ export default function Users() {
       <Row>
         {usersData.map((user) => (
           <Col key={user.id} sm={6} md={4} lg={3}>
-            <Card style={{ marginBottom: '20px' }}>
+            <Card style={{ marginBottom: '20px', backgroundColor: "#d2e8ff" }}>
               <Card.Body>
                 <Card.Title>{user.name} ({user.username})</Card.Title>
                 <Card.Text>
@@ -59,7 +59,7 @@ export default function Users() {
                   <strong>Catch Phrase:</strong> {user.company.catchPhrase}<br />
                   <strong>BS:</strong> {user.company.bs}
                 </Card.Text>
-                <Link to={`/details/${user.id}`} className="btn btn-primary">
+                <Link to={`/users/${user.id}`} className="btn btn-primary">
                     View Details
                   </Link>
               </Card.Body>

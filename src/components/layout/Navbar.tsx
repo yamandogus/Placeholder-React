@@ -17,8 +17,8 @@ export function Navbar() {
             <Nav.Link as={NavLink} to="/users">
               Users
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/details">
-              Users Details
+            <Nav.Link as={NavLink} to="/favorites">
+              Favorites
             </Nav.Link>
           </Nav>
         </NavbarBS.Collapse>

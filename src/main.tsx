@@ -4,10 +4,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { DetailsPage, HomePage, loader, loaderData, Root, UsersPage} from './routes';
+import { AlbumsPage, HomePage, loader, loaderData, Root, UsersPage} from './routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserDetailsPage from './routes/user-details';
 import CommentsPage, { LoaderComments } from './routes/comments';
+import { loaderAlbums } from './routes/albums';
+import Favorites from './routes/favorites ';
 
 const router = createBrowserRouter([
   {
@@ -24,38 +26,29 @@ const router = createBrowserRouter([
         element:<UsersPage/>
       },
       {
-        path: "/details",
-        children:[
-          {
-            index: true,
-            element: <DetailsPage/>
-          },
-          {
-            path:":userId",
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            loader: loaderData as any,
-            element:<UserDetailsPage/>,
-            children:[
-              {
-                path:"posts",
-                children:[
-                  {
-                    index: true,
-                    path: ":postId",
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    loader: LoaderComments as any,
-                    element: <CommentsPage/>
-                  }
-                ]
-              }
-            ]
-          },
-          
+        path:"users/:userId",
+        loader: loaderData,
+        element:<UserDetailsPage/>,
+      },
+      {
+        path: "users/:userId/posts/:postId",
+        element: <CommentsPage />,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        loader: LoaderComments as any,
+      }, 
+      {
+        path:"/users/:userId/albums/:albumId",
+        element:<AlbumsPage/>,
+        loader: loaderAlbums,
+      },
+      {
+        path: "/favorites",
+        element: <Favorites/>
+      }
         ]
       }
     ]
-  },
-]);
+);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
