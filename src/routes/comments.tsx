@@ -91,11 +91,7 @@ export async function LoaderComments({ params }: { params: UserProps }) {
   return { user: dataUser, post: postData, comments: commentsData };
 }
 export default function CommentsPage() {
-  const { user, post, comments } = useLoaderData() as {
-    user: User;
-    post: PostsProps;
-    comments: CommnetsProps;
-  };
+  const { user, post, comments } = useLoaderData() as Awaited<ReturnType<typeof LoaderComments>>
   const { userId } = useParams() as unknown as UserProps;
   // const { postId } = useParams() as unknown as UserProps;
   return (
@@ -119,16 +115,19 @@ export default function CommentsPage() {
             <strong>Post Body:</strong> {post.body}
           </p>
         </PostContent>
-        {/* <div style={{
-          backgroundColor:"#d2e8ff"
-        }}>
-          <p>Comment Id: {comments.id}</p>
-          <p>Post Id: {comments.postId}</p>
-          <p>Comments Name: {comments.name}</p>
-          <p>Email: {comments.email}</p>
-          <p>Comments Body: <br /> {comments.body}</p>
-        </div> */}
-        <pre>{JSON.stringify(comments)}</pre>
+        <br />
+        
+          
+          {comments.map((comment)=>(
+           <PostContent key={comment.id}>
+             <p>Id:{comment.id}</p>
+             <p>Post Id:{comment.postId}</p>
+             <p>Name: {comment.name}</p>
+             <p>Email: {comment.email}</p>
+             <p>Body: {comment.body}</p>
+           </PostContent>
+            
+          ))}
       </Container>
     </>
   );
