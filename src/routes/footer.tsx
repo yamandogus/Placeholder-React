@@ -13,6 +13,7 @@ const Text = styled.h4`
   align-items: center;
   justify-content: center;
 `;
+
 export default function Footer() {
   return (
     <>

@@ -1,10 +1,12 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
-import { User } from "./user-details";
+import { User, UsersContainer } from "./user-details";
 import { CiHeart } from "react-icons/ci";
 import styled from "styled-components";
 import { create } from "zustand";
 import "./routes.css";
+// import { useAlbumsStore } from "./favorites ";
+// import { useEffect } from "react";
 
 const StyledHeart = styled(CiHeart)`
   &:hover {
@@ -16,7 +18,11 @@ const CardBody = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
 `;
 
 interface LoaderParams {
@@ -32,32 +38,8 @@ interface AlbumsProps {
   thumbnailUrl: string;
 }
 
-interface AlbumsState {
-  userId?: number,
-  albumId?: number,
-  id?: number,
-  title: string,
-  url: string,
-  thumbnailUrl: string,
-  setUserId: (payload: number) => void,
-  setAlbumId: (payload: number) => void,
-  setId: (payload: number) => void,
-  setTitle: (payload: string) => void,
-  setUrl: (payload: string) => void,
-  setThumbnailUrl: (payload: string) => void,
-}
 
-export const useAlbumsStore = create<AlbumsState>((set) => ({
-  title: "",
-  url: "",
-  thumbnailUrl: "",
-  setUserId: (payload) => set({userId: payload}),
-  setAlbumId: (payload) => set({albumId: payload}),
-  setId: (payload) => set({id: payload}),
-  setTitle: (payload) => set({title: payload}),
-  setUrl: (payload) => set({url: payload}),
-  setThumbnailUrl: (payload) => set({thumbnailUrl:payload})
-}));
+
 
 export async function loaderAlbums({ params }: { params: LoaderParams }) {
   const { albumId, userId } = params;
@@ -76,20 +58,53 @@ export async function loaderAlbums({ params }: { params: LoaderParams }) {
   return { albums: userData, user: data };
 }
 
+
+type Store = {
+  count: number
+  inc: () => void
+}
+
+export const useStore = create<Store>()((set) => ({
+  count: 1,
+  inc: () => set((state) => ({ count: state.count + 1 })),
+}))
+
+
 export default function AlbumsPage() {
   const { albums, user } = useLoaderData() as Awaited<
     ReturnType<typeof loaderAlbums>
   >;
+  // const userId = useAlbumsStore((state)=> state.userId);
+  // const albumId = useAlbumsStore((state)=> state.albumId);
+  // const id = useAlbumsStore((state) => state.id);
+  // const title = useAlbumsStore((state)=> state.title);
+  // const url = useAlbumsStore((state) => state.url)
+  // const thumbnailUrl = useAlbumsStore((state) => state.setThumbnailUrl)
+  // const setUserId = useAlbumsStore((state) => state.setUserId);
+  // const setAlbumId = useAlbumsStore((state) => state.setAlbumId);
+  // const setId = useAlbumsStore((state) => state.setId);
+  // const setTitle = useAlbumsStore((state) => state.setTitle);
+  // const setUrl = useAlbumsStore((state) => state.setUrl);
+  // const setThumbnailUrl = useAlbumsStore((state) => state.setThumbnailUrl);
+
 
   return (
     <>
-      <Container>
-        <Link to={`/users/${user.id}`}>
+    <h2 className="text-center" style={{
+      fontFamily:"sans-serif"
+
+    }}>Albums</h2>
+      <Container className="mt-4">
+        <Link style={{textDecoration:"none",
+          color:"black"
+        }} to={`/users/${user.id}`}>
+          <UsersContainer>
           <h3>
             {user.name} ({user.username})
           </h3>
+          </UsersContainer>
         </Link>
-        <Row>
+        <Row className="mt-4">
           {albums.map((album) => (
             <Col xs={12} sm={6} md={4} key={album.id}>
               <Card style={{ minHeight: "450px" }} className="mb-3">
