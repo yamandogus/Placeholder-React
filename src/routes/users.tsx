@@ -6,6 +6,7 @@ import {
 } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
 
+
 interface User {
   id: number;
   name: string;
@@ -42,11 +43,11 @@ export default function Users() {
 
   return (
     <>
-      <h1 className="text-center my-3">Users Information</h1>
+      <h3 className="text-center my-3">Users Information</h3>
       <Container>
       <Row>
         {usersData.map((user) => (
-          <Col key={user.id} sm={6} md={4} lg={3}>
+          <Col key={user.id} md={6} lg={3}>
             <Card style={{ marginBottom: '20px', backgroundColor: "#d2e8ff" }}>
               <Card.Body>
                 <Card.Title>{user.name} ({user.username})</Card.Title>
