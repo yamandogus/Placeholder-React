@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 // import { useStore } from "../../routes/albums";
 import { Badge } from "react-bootstrap";
+import { useAlbumStore } from "../../routes/favorites ";
 
 
 const link = "https://remix.run/blog-images/posts/remixing-react-router/image.jpg"
@@ -26,7 +27,9 @@ right: -4px;
 `
 
 export function Navbar() {
-// const count = useStore((state)=> state.count)
+
+const count = useAlbumStore((state)=> state.count)
+
 
   return (
     <NavbarBS expand="lg"className="bg-body-tertiary" >
@@ -42,7 +45,7 @@ export function Navbar() {
               Users
             </Nav.Link>
             <Nav.Link as={NavLink} to="/favorites">
-             Favorites<BadgeIcon></BadgeIcon>
+             Favorites<BadgeIcon>{count}</BadgeIcon>
             </Nav.Link>
           </Nav>
         </NavbarBS.Collapse>

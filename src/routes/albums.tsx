@@ -1,16 +1,20 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import {Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
 import { User, UsersContainer } from "./user-details";
+import { FaRegHeart } from "react-icons/fa";
+import { useAlbumStore } from "./favorites ";
+import { useState } from "react";
+import { Alert } from "@mui/material";
 import styled from "styled-components";
-import { SlLike } from "react-icons/sl";
-import { useAlbumsStore } from "./favorites ";
 
-const StyledLike = styled(SlLike)`
-font-size: 25px;
-  &:hover {
-    color: #0004ff;
-  }
-`;
+
+const AlertDiv = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+justify-content: center;
+height: 30px;
+`
 
 interface LoaderParams {
   albumId: string;
@@ -24,7 +28,11 @@ interface AlbumsProps {
   url: string;
   thumbnailUrl: string;
 }
-
+interface ShowProps{
+  show: boolean;
+  type: "success" | "error";
+  message: string;
+}
 
 export async function loaderAlbums({ params }: { params: LoaderParams }) {
   const { albumId, userId } = params;
@@ -45,24 +53,38 @@ export async function loaderAlbums({ params }: { params: LoaderParams }) {
 
 
 export default function AlbumsPage() {
+
   const { albums, user } = useLoaderData() as Awaited<
     ReturnType<typeof loaderAlbums>
   >;
+  const addFavorite = useAlbumStore((state) => state.addFavorite);
+  const increaceCount = useAlbumStore((state)=> state.increaceCount);
+  const[showAlert, setShowAlert] = useState<ShowProps>({show: false, type:"success", message: ""})
 
-  const addFavorite = useAlbumsStore((state) => state.addFavorite);
+  const closeAlert = () => {
+    setTimeout(() => {
+      setShowAlert({...showAlert, show: false})
+    }, 2000);
+  }
 
   const handleLike = (album: AlbumsProps) => {
     addFavorite(album);
+    increaceCount()
+    setShowAlert({show: true, type: "success", message: "album added"})
+    closeAlert()
   };
 
 
   return (
     <>
-    <h2 className="text-center" style={{
-      fontFamily:"sans-serif"
-
-    }}>Albums</h2>
-      <Container className="my-5">
+    <AlertDiv className="mt-3">
+        {showAlert.show &&
+            <Alert variant="filled" severity={showAlert.type} onClose={closeAlert}>
+              {showAlert.message}
+            </Alert>
+          }
+      </AlertDiv>
+      <Container className="mt-3 mb-5">
         <Link style={{textDecoration:"none",
           color:"black"
         }} to={`/users/${user.id}`}>
@@ -85,7 +107,10 @@ export default function AlbumsPage() {
                   alignItems:"center",
                   justifyContent:"center"
                 }}>
-                  <StyledLike onClick={() => handleLike(album)} />
+                  <FaRegHeart
+                    style={{ fontSize: "30px", cursor: "pointer" }}
+                    onClick={() => handleLike(album)}
+                  /> 
                 </div>
               </Card>
             </Col>

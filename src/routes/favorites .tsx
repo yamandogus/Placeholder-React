@@ -1,75 +1,81 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { create } from "zustand";
-import { SlLike } from "react-icons/sl";
+import {Card,Col, Container, Row} from "react-bootstrap";
 import styled from "styled-components";
+import { create } from "zustand";
+import { IoHeartDislikeOutline } from "react-icons/io5";
 
-const StyledDisLike = styled(SlLike)`
-font-size: 25px;
-transform: rotate(180deg);
-`;
+export const NewCard = styled(Card)`
+ background: #d2e8ff;
+ border-radius: 10px;
+ transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+`
 
 interface FavoritesProps{
-  userId?: number;
+  userId?: number,
   albumId?: number;
   id?: number;
   title: string;
   url: string;
   thumbnailUrl: string;
-
 }
 interface AlbumsProps {
-  userId?: number;
+  count: number,
+  userId?: number,
   albumId?: number;
   id?: number;
   title: string;
   url: string;
   thumbnailUrl: string;
-  favorites: FavoritesProps[];
-  setUserId: (payload: number) => void;
-  setAlbumId: (payload: number) => void;
-  setId: (payload: number) => void;
-  setTitle: (payload: string) => void;
-  setUrl: (payload: string) => void;
-  setThumbnailUrl: (payload: string) => void;
-  addFavorite: (album: FavoritesProps) => void;
-  removeFavorite: (albumId: number) => void;
+  favorites: FavoritesProps[],
+  setUserId : (payload: number) => void,
+  setAlbumId: (payload: number) => void,
+  setId: (payload: number) => void,
+  setTitle: (payload: string) => void,
+  setUrl: (payload: string) => void,
+  setThumbnailUrl: (payload: string) => void,
+  addFavorite: (album: FavoritesProps) => void,
+  removeFavorite:(albumId: number) => void,
+  increaceCount: () => void,
+  disncreaceCount: () => void,
 }
 
-export const useAlbumsStore = create<AlbumsProps>((set) => ({
+export const useAlbumStore = create<AlbumsProps>((set) =>({
+  count: 0,
   userId: undefined,
   albumId: undefined,
   id: undefined,
   title: "",
-  url: "",
-  thumbnailUrl: "",
+  url:"",
+  thumbnailUrl:"",
   favorites: [],
-  setUserId: (payload) => set({ userId: payload }),
-  setAlbumId: (payload) => set({ albumId: payload }),
-  setId: (payload) => set({ id: payload }),
-  setTitle: (payload) => set({ title: payload }),
-  setUrl: (payload) => set({ url: payload }),
-  setThumbnailUrl: (payload) => set({ thumbnailUrl: payload }),
-  addFavorite: (album)=> 
+  increaceCount: () => set((state) => ({ count: state.count + 1 })),
+  disncreaceCount: () => set((state) => ({ count: state.count - 1 })),
+  setUserId: (payload) => set({userId: payload}),
+  setAlbumId: (payload) => set({albumId: payload}),
+  setId: (payload) => set({id: payload }),
+  setTitle: (payload) => set({title: payload}),
+  setUrl: (payload) => set({url: payload}),
+  setThumbnailUrl: (payload) => set({thumbnailUrl: payload}),
+  addFavorite: (album) =>
     set((state)=>({
-      favorites: [...state.favorites, album],
+      favorites: [...state.favorites, album]
     })),
-  removeFavorite: (albumId)=> 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    set((state:any)=> ({
-      favorites: state.favorites.filter((album)=> album.id !== albumId)
-    }))
+  removeFavorite: (albumId) =>
+    set((state) =>({
+      favorites: state.favorites.filter((album) => album.id !== albumId)
+    })),
 }));
-
-
 
 export default function Favorites() {
 
-  const favorites = useAlbumsStore((state) => state.favorites);
-  const removeFavorite = useAlbumsStore((state) => state.removeFavorite);
+  const favorites = useAlbumStore((state) => state.favorites);
+  const removeFavorite = useAlbumStore((state) => state.removeFavorite);
+  const disncreaceCount = useAlbumStore((state)=> state.disncreaceCount)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDisLike = (albumId: any) => {
     removeFavorite(albumId);
+    disncreaceCount()
   };
   
   return (
@@ -80,15 +86,17 @@ export default function Favorites() {
         <Row>
           {favorites.map((album) => (
             <Col xs={12} sm={6} md={4} lg={3} key={album.id} className="mb-4">
-              <Card>
+              <NewCard >
                 <Card.Img variant="top" src={album.thumbnailUrl} alt={album.title} />
                 <Card.Body>
                   <Card.Title>{album.title}</Card.Title>
                 </Card.Body>
                 <div className="text-center">
-                <StyledDisLike onClick={() => handleDisLike(album.id)}/>
+                <IoHeartDislikeOutline style={{
+                  fontSize:"30px"
+                }} onClick={() => handleDisLike(album.id)}/>
                 </div>
-              </Card>
+              </NewCard>
             </Col>
           ))}
         </Row>

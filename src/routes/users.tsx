@@ -5,6 +5,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
+import { NewCard } from "./favorites ";
 
 
 interface User {
@@ -48,7 +49,7 @@ export default function Users() {
       <Row>
         {usersData.map((user) => (
           <Col key={user.id} md={6} lg={3}>
-            <Card style={{ marginBottom: '20px', backgroundColor: "#d2e8ff" }}>
+            <NewCard style={{ marginBottom: '20px', backgroundColor: "" }}>
               <Card.Body>
                 <Card.Title>{user.name} ({user.username})</Card.Title>
                 <Card.Text>
@@ -64,7 +65,7 @@ export default function Users() {
                     View Details
                   </Link>
               </Card.Body>
-            </Card>
+            </NewCard>
           </Col>
         ))}
       </Row>
