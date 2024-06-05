@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { AlbumsPage, HomePage, loader, loaderData, Root, UsersPage} from './routes';
+import { AlbumsPage, loader, loaderData, Root, UsersPage} from './routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserDetailsPage from './routes/user-details';
 import CommentsPage, { LoaderComments } from './routes/comments';
@@ -17,10 +17,7 @@ const router = createBrowserRouter([
     element:<Root/>,
     children:[
       {
-        index: true,
-        element: <HomePage/>
-      },
-      {
+        index:true,
         path:"/users",
         loader: loader,
         element:<UsersPage/>

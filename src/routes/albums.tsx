@@ -97,9 +97,9 @@ export default function AlbumsPage() {
         <Row className="mt-4">
           {albums.map((album) => (
             <Col xs={12} sm={6} md={4} key={album.id}>
-              <Card style={{ minHeight: "300px" }} className="mb-3">
+              <Card style={{ minHeight: "300px", backgroundColor:"#d2e8ff"  }} className="mb-3">
                 <Card.Img variant="top" src={album.url} />
-                <p style={{ padding: "5px" }}>
+                <p style={{ padding: "5px"}}>
                   {album.title}
                 </p>
                 <div style={{
