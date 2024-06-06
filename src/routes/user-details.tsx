@@ -2,6 +2,9 @@ import { Link, useLoaderData, useParams } from "react-router-dom";
 import { Tabs, Tab, Container} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+import { CiHeart } from "react-icons/ci";
 
 export const UsersContainer = styled.div`
   padding: 10px;
@@ -47,10 +50,26 @@ interface loaderParams {
 }
 
 interface PostsProps {
-  userId: number;
-  id: number;
+  userId?: number;
+  id?: number;
   title: string;
   body: string;
+}
+interface PostsPropsStore {
+  count2: number;
+  userId?: number;
+  id?: number;
+  title: string;
+  body: string;
+  posts: PostsProps[],
+  setUserId: (payload: number) => void,
+  setId: (payload: number) => void,
+  setTitle: (payload: string) => void,
+  setBody: (payload: string) => void,
+  addPosts: (post: PostsProps) => void;  
+  removePosts: (postId: number) => void;
+  increaceCount: () => void;
+  decreaseCount: () => void;
 }
 
 interface AlbumsProps {
@@ -81,12 +100,51 @@ export async function loader({ params }: { params: loaderParams }) {
   return { user: data };
 }
 
+export const usePostStore = create<PostsPropsStore>()(
+  persist(
+    (set) => ({
+      count2:0,
+      userId: undefined,
+      id: undefined,
+      title: "",
+      body: "",
+      posts: [],
+      increaceCount: () => set((state) => ({ count2: state.count2 + 1 })),
+      decreaseCount: () => set((state) => ({ count2: state.count2 - 1 })),
+      setUserId: (payload) => set({ userId: payload }),
+      setId: (payload) => set({ id: payload }),
+      setTitle: (payload) => set({ title: payload }),
+      setBody: (payload) => set({ body: payload }),
+      addPosts: (post) =>
+        set((state) => ({
+          posts: [...state.posts, post],
+        })),
+      removePosts: (postId) =>
+        set((state) => ({
+          posts: state.posts.filter((post) => post.id !== postId),
+        })),
+    }),
+    {
+      name: "post-store",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
+
 export default function UserDetailsPage() {
   const { user } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const { userId } = useParams() as unknown as loaderParams;
   const [posts, setPosts] = useState<PostsProps[]>([]);
   const [albums, setAlbums] = useState<AlbumsProps[]>([]);
   const [todos, setTodos] = useState<TodosPorps[]>([]);
+  const addPosts = usePostStore((state) => state.addPosts);
+  const increaceCount = usePostStore((state) => state.increaceCount)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleLike = (post: PostsProps)=> {
+   addPosts(post)
+   increaceCount();
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -117,11 +175,10 @@ export default function UserDetailsPage() {
 
   if(!todos && !albums && !posts) return <div>Yükleniyor...</div>
 
-
+  
 
   return (
     <>
-      {/* <pre>{JSON.stringify(user)}</pre> */}
       <Container className="mt-5">
         <UsersContainer className="my-5">
           <p>
@@ -146,6 +203,7 @@ export default function UserDetailsPage() {
                 <Link to={`/users/${userId}/posts/${post.id}`} className="btn btn-primary">
                  Comments Details
                 </Link>
+                <CiHeart onClick={()=> handleLike(post)} />
               </PostList>
             ))}
           </Tab>

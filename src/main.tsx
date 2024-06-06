@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { AlbumsPage, loader, loaderData, Root, UsersPage} from './routes';
+import { AlbumsPage, loader, loaderData, PostFavorites, Root, UsersPage} from './routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserDetailsPage from './routes/user-details';
 import CommentsPage, { LoaderComments } from './routes/comments';
@@ -41,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/favorites",
         element: <Favorites/>
+      },
+      {
+        path:"/post-favorites",
+        element: <PostFavorites/>  
       }
         ]
       }
