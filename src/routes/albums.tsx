@@ -1,20 +1,11 @@
 import {Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
-import { User, UsersContainer } from "./user-details";
-import { FaRegHeart } from "react-icons/fa";
+import { User} from "./user-details";
 import { useAlbumStore } from "./favorites ";
 import { useState } from "react";
 import { Alert } from "@mui/material";
-import styled from "styled-components";
-
-
-const AlertDiv = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-justify-content: center;
-height: 30px;
-`
+import { AlertDiv, UsersContainer } from "./styled-components/styled";
+import { AiFillHeart } from "react-icons/ai";
 
 interface LoaderParams {
   albumId: string;
@@ -107,7 +98,7 @@ export default function AlbumsPage() {
                   alignItems:"center",
                   justifyContent:"center"
                 }}>
-                  <FaRegHeart
+                  <AiFillHeart 
                     style={{ fontSize: "30px", cursor: "pointer" }}
                     onClick={() => handleLike(album)}
                   /> 

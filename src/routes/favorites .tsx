@@ -1,14 +1,10 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
-import styled from "styled-components";
 import { create } from "zustand";
 import { IoHeartDislikeOutline } from "react-icons/io5";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { Empty, NewCard } from "./styled-components/styled";
 
-export const NewCard = styled(Card)`
-  background: #d2e8ff;
-  border-radius: 10px;
-  transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-`;
+
 
 interface FavoritesProps {
   userId?: number;
@@ -116,7 +112,7 @@ export default function Favorites() {
             ))}
           </Row>
         ) : (
-          <h4 className="text-center mt-3">No favorites added yet.</h4>
+          <Empty>Favorites box is empty</Empty>
         )}
       </Container>
     </>

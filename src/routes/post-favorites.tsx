@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { usePostStore } from "./user-details";
-import { PostList } from "./user-details";
-import { IoHeartDislikeOutline } from "react-icons/io5";
+import { Empty, PostList} from "./styled-components/styled";
+import { IoIosHeartDislike } from "react-icons/io";
 
 export default function PostFavorites() {
   const posts = usePostStore((state) => state.posts);
@@ -28,12 +28,12 @@ export default function PostFavorites() {
               <h5>Title: {post.title}</h5>
               <p>{post.body}</p>
               <div className="text-center">
-              <IoHeartDislikeOutline onClick={()=> handleDislike(post.id)} />
+              <IoIosHeartDislike style={{fontSize:"25px"}} onClick={()=> handleDislike(post.id)} />
               </div>
             </PostList>
           ))
         ) : (
-          <p>No favorite posts.</p>
+          <Empty>Favorites box is empty</Empty>
         )}
       </Container>
     </>

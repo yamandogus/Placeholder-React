@@ -1,23 +1,6 @@
 import { Container } from "react-bootstrap";
 import { Link, useLoaderData, useParams } from "react-router-dom";
-import styled from "styled-components";
-
-const UserContent = styled.div`
-  margin: 10px 0 10px 0;
-  padding: 16px;
-  border-radius: 5px;
-  background-color: #d2e8ff;
-  width: 300px;
-  border: 1px solid black;
-`;
-const PostContent = styled.div`
-  padding: 16px;
-  margin: 10px 0 10px 0;
-  border-radius: 5px;
-  background-color: #d2e8ff;
-  width: 500px;
-  border: 1px solid black;
-`;
+import { UserContent, PostContent} from "./styled-components/styled";
 interface UserProps {
   userId: string;
   postId: string;
@@ -120,11 +103,11 @@ export default function CommentsPage() {
           
           {comments.map((comment)=>(
            <PostContent key={comment.id}>
-             <p>Id:{comment.id}</p>
-             <p>Post Id:{comment.postId}</p>
-             <p>Name: {comment.name}</p>
-             <p>Email: {comment.email}</p>
-             <p>Body: {comment.body}</p>
+             <p><strong>Id: </strong>{comment.id}</p>
+             <p><strong>Post Id: </strong>{comment.postId}</p>
+             <p><strong>Name: </strong> {comment.name}</p>
+             <p><strong>Email: </strong> {comment.email}</p>
+             <p><strong>Body: </strong> {comment.body}</p>
            </PostContent>
             
           ))}

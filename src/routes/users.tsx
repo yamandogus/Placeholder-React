@@ -5,7 +5,12 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
-import { NewCard } from "./favorites ";
+import { MdEmail } from "react-icons/md";
+import { FaAddressCard, FaChartLine, FaPhoneAlt } from "react-icons/fa";
+import { CgWebsite } from "react-icons/cg";
+import { SiTheboringcompany } from "react-icons/si";
+import { GiSaberToothedCatHead } from "react-icons/gi";
+import { ButonNew, NewCard, Strong } from "./styled-components/styled";
 
 
 interface User {
@@ -49,21 +54,43 @@ export default function Users() {
       <Row>
         {usersData.map((user) => (
           <Col key={user.id} md={6} lg={3}>
-            <NewCard style={{ marginBottom: '20px', backgroundColor: "" }}>
+            <NewCard style={{ marginBottom: '20px'}}>
               <Card.Body>
                 <Card.Title>{user.name} ({user.username})</Card.Title>
                 <Card.Text>
-                  <strong>Email:</strong> {user.email}<br />
-                  <strong>Address:</strong> {user.address.suite}, {user.address.street}, {user.address.city}, {user.address.zipcode}<br />
-                  <strong>Phone:</strong> {user.phone}<br />
-                  <strong>Website:</strong> <a href={`http://${user.website}`}>{user.website}</a><br />
-                  <strong>Company:</strong> {user.company.name}<br />
-                  <strong>Catch Phrase:</strong> {user.company.catchPhrase}<br />
-                  <strong>BS:</strong> {user.company.bs}
+                  <Strong><MdEmail style={{
+                    fontSize:"25px"
+                  }}/></Strong> {user.email}<br />
+                  <Strong><FaAddressCard style={{
+                    fontSize:"25px"
+                  }}/></Strong> {user.address.suite}, {user.address.street}, {user.address.city}, {user.address.zipcode}<br />
+                  <Strong><FaPhoneAlt style={{
+                    fontSize:"25px"
+                  }}/></Strong> {user.phone}<br />
+                  <Strong><CgWebsite style={{
+                    fontSize:"25px"
+                  }}/></Strong> <a href={`http://${user.website}`}>{user.website}</a><br />
+                  <Strong><SiTheboringcompany style={{
+                    fontSize:"25px"
+                  }}/></Strong> {user.company.name}<br />
+                  <Strong><GiSaberToothedCatHead style={{
+                    fontSize:"25px"
+                  }}/></Strong> {user.company.catchPhrase}<br />
+                  <Strong><FaChartLine style={{
+                    fontSize:"25px"
+                  }}/></Strong> {user.company.bs}
                 </Card.Text>
-                <Link to={`/users/${user.id}`} className="btn btn-primary">
+                <div style={{
+                  display:"flex",
+                  justifyContent:"center",
+                  alignItems:"center",
+                }}>
+                <ButonNew>
+                <Link to={`/users/${user.id}`} >
                     View Details
                   </Link>
+                </ButonNew>
+                </div>
               </Card.Body>
             </NewCard>
           </Col>

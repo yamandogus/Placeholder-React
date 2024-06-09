@@ -1,25 +1,11 @@
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import { Tabs, Tab, Container} from "react-bootstrap";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { CiHeart } from "react-icons/ci";
-
-export const UsersContainer = styled.div`
-  padding: 10px;
-  border: 1px solid black;
-  width: 300px;
-  border-radius: 5px;
-  background-color: #d2e8ff;
-`;
-
-export const PostList = styled.div`
-  padding: 16px;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: #d2e8ff;
-`;
+import { ButonNew, PostList, UsersContainer } from "./styled-components/styled";
+import { GrUpdate } from "react-icons/gr";
+import { AiFillHeart } from "react-icons/ai";
 
 export interface User {
   id: number;
@@ -173,7 +159,7 @@ export default function UserDetailsPage() {
     fetchData();
   }, [userId]);
 
-  if(!todos && !albums && !posts) return <div>Yükleniyor...</div>
+  if(!todos && !albums && !posts) return <div><GrUpdate /></div>
 
   
 
@@ -193,17 +179,23 @@ export default function UserDetailsPage() {
             {posts.map((post) => (
               <PostList className="mt-3" key={post.id}>
                 <p>
-                  <strong>UserId:</strong> {post.userId}
+                  <strong>User Id:</strong> {post.userId}
                 </p>
                 <p>
                   <strong>Post Id: </strong> {post.id}
                 </p>
-                <h5>Title{post.title}</h5>
+                <h5>Title: {post.title}</h5>
                 <p>{post.body}</p>
-                <Link to={`/users/${userId}/posts/${post.id}`} className="btn btn-primary">
+               
+               <ButonNew>
+                <Link to={`/users/${userId}/posts/${post.id}`}>
                  Comments Details
                 </Link>
-                <CiHeart onClick={()=> handleLike(post)} />
+                </ButonNew>
+                <AiFillHeart style={{
+                  fontSize:"30px",
+                  marginLeft:"150px"
+                }} onClick={()=> handleLike(post)} />
               </PostList>
             ))}
           </Tab>
@@ -211,14 +203,16 @@ export default function UserDetailsPage() {
             {albums.map((album) => (
               <PostList className="mt-3" key={album.id}>
                 <p>
-                  User Id: {album.userId} <br /> <br />
-                  Album id: {album.id}
+                  <strong>User Id:</strong> {album.userId} <br /> <br />
+                  <strong>Album Id:</strong> {album.id}
                 </p>
                 <p>
                   <strong>Album Name: </strong>
                   {album.title}
                 </p>
+                <ButonNew>
                 <Link to={`/users/${userId}/albums/${album.id}`}>Albums</Link>
+                </ButonNew>
               </PostList>
             ))}
           </Tab>
@@ -226,8 +220,8 @@ export default function UserDetailsPage() {
             {todos.map((todo) => (
               <PostList className="mt-3" key={todo.id}>
                 <p>
-                  User Id: {todo.userId} <br /> <br />
-                  Album id: {todo.id}
+                  <strong>User Id:</strong> {todo.userId} <br /> <br />
+                  <strong>Album id:</strong> {todo.id}
                 </p>
                 <h5>Title: {todo.title}</h5>
                 <p>
