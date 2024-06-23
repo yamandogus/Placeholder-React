@@ -17,7 +17,7 @@ const count2 = usePostStore((state) => state.count2)
   return (
     <NavbarBS expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
-        <NavbarBS.Brand href="/users"><Logo  src={link} alt="" /></NavbarBS.Brand>
+        <NavbarBS.Brand as={NavLink} to={"/users"}><Logo  src={link} alt="" /></NavbarBS.Brand>
         <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
         <NavbarBS.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

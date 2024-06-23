@@ -48,7 +48,7 @@ export const useAlbumStore = create<AlbumsProps>()(
       thumbnailUrl: "",
       favorites: [],
       increaceCount: () => set((state) => ({ count: state.count + 1 })),
-      decreaseCount: () => set((state) => ({ count: state.count - 1 })),
+      decreaseCount: () => set((state) => ({ count: state.count > 0 ? state.count - 1 : state.count })),
       setUserId: (payload) => set({ userId: payload }),
       setAlbumId: (payload) => set({ albumId: payload }),
       setId: (payload) => set({ id: payload }),
