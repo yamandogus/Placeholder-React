@@ -5,7 +5,8 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { ButonNew, PostList, UsersContainer } from "./styled-components/styled";
 import { GrUpdate } from "react-icons/gr";
-import { AiFillHeart } from "react-icons/ai";
+import { FaRegHeart } from "react-icons/fa";
+
 
 export interface User {
   id: number;
@@ -128,7 +129,7 @@ export default function UserDetailsPage() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleLike = (post: PostsProps)=> {
-   addPosts(post)
+   addPosts(post);
    increaceCount();
   }
 
@@ -165,7 +166,7 @@ export default function UserDetailsPage() {
 
   return (
     <>
-      <Container className="mt-5">
+      <Container className="my-5">
         <UsersContainer className="my-5">
           <p>
             <strong>UserId:</strong> {userId}
@@ -192,7 +193,7 @@ export default function UserDetailsPage() {
                  Comments Details
                 </Link>
                 </ButonNew>
-                <AiFillHeart style={{
+                <FaRegHeart id="heart1" style={{
                   fontSize:"30px",
                   marginLeft:"150px"
                 }} onClick={()=> handleLike(post)} />

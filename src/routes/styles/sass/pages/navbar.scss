@@ -1,0 +1,13 @@
+.bg-color{
+    color: white!important;
+}
+
+.navLink{
+    margin-right: 15px;
+    @media(min-width: 993px){
+        &:hover{
+            border-bottom: 1px solid rgb(210,232,255);
+            transition: ease 0.5s;
+        }
+    }
+}

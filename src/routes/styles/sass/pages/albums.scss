@@ -1,0 +1,11 @@
+
+.albumsClas{
+    text-transform: capitalize;
+};
+
+.cardImg{
+    @media(max-width: 578px){
+        width: 50%;
+        margin: 0 auto;
+    }
+}

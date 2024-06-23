@@ -10,6 +10,7 @@ import UserDetailsPage from './routes/user-details';
 import CommentsPage, { LoaderComments } from './routes/comments';
 import { loaderAlbums } from './routes/albums';
 import Favorites from './routes/favorites ';
+import "./routes/styles/sass/main.scss"
 
 const router = createBrowserRouter([
   {

@@ -25,6 +25,8 @@ interface ShowProps{
   message: string;
 }
 
+
+
 export async function loaderAlbums({ params }: { params: LoaderParams }) {
   const { albumId, userId } = params;
   const responseUser = await fetch(
@@ -44,7 +46,6 @@ export async function loaderAlbums({ params }: { params: LoaderParams }) {
 
 
 export default function AlbumsPage() {
-
   const { albums, user } = useLoaderData() as Awaited<
     ReturnType<typeof loaderAlbums>
   >;
@@ -88,9 +89,9 @@ export default function AlbumsPage() {
         <Row className="mt-4">
           {albums.map((album) => (
             <Col xs={12} sm={6} md={4} key={album.id}>
-              <Card style={{ minHeight: "300px", backgroundColor:"#d2e8ff"  }} className="mb-3">
-                <Card.Img variant="top" src={album.url} />
-                <p style={{ padding: "5px"}}>
+              <Card style={{ minHeight: "300px", backgroundColor:"#d2e8ff"  }} className="mb-3 cardImg">
+                <Card.Img className="impType" variant="top" src={album.url} />
+                <p className="albumsClas" style={{ padding: "5px"}}>
                   {album.title}
                 </p>
                 <div style={{
@@ -99,7 +100,7 @@ export default function AlbumsPage() {
                   justifyContent:"center"
                 }}>
                   <AiFillHeart 
-                    style={{ fontSize: "30px", cursor: "pointer" }}
+                    style={{fontSize: "30px", cursor: "pointer" }}
                     onClick={() => handleLike(album)}
                   /> 
                 </div>

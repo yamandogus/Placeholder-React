@@ -1,6 +1,6 @@
-import { Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import { Link, useLoaderData, useParams } from "react-router-dom";
-import { UserContent, PostContent} from "./styled-components/styled";
+import { UserContent, PostContent, ButonNew} from "./styled-components/styled";
 interface UserProps {
   userId: string;
   postId: string;
@@ -82,9 +82,9 @@ export default function CommentsPage() {
       <Container>
         <UserContent>
           <h4>{user.name}({user.username})</h4>
-          <Link to={`/users/${userId}/`}>Profile</Link>
+        <ButonNew><Link to={`/users/${userId}/`}>Profile</Link></ButonNew>  
         </UserContent>
-        <PostContent>
+        <PostContent className="postsCont">
           <p>
             <strong>Post Id:</strong> {post.id}
           </p>
@@ -98,19 +98,20 @@ export default function CommentsPage() {
             <strong>Post Body:</strong> {post.body}
           </p>
         </PostContent>
+
+        <h3 className="text-center">Comments</h3>
         <br />
-        
-          
-          {comments.map((comment)=>(
-           <PostContent key={comment.id}>
-             <p><strong>Id: </strong>{comment.id}</p>
-             <p><strong>Post Id: </strong>{comment.postId}</p>
-             <p><strong>Name: </strong> {comment.name}</p>
-             <p><strong>Email: </strong> {comment.email}</p>
-             <p><strong>Body: </strong> {comment.body}</p>
-           </PostContent>
-            
-          ))}
+        <div className="d-flex flex-wrap">
+        {comments.map((comment) => (
+          <Card className="commnets-card" key={comment.id}>
+            <Card.Body>
+              <Card.Title><strong></strong>{comment.name.toUpperCase()}</Card.Title> <br />
+              <Card.Subtitle className="mb-2"><strong>Email:</strong> {comment.email}</Card.Subtitle>
+              <Card.Text> <strong>Comment Body</strong> {comment.body}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
       </Container>
     </>
   );

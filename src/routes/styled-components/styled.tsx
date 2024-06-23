@@ -37,7 +37,8 @@ export const Strong = styled.strong`
   &:hover {
     transform: rotate(360deg);
     -webkit-transform: rotate(360deg);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.7s ease-in-out;
+    color: blue;
   }
 `;
 

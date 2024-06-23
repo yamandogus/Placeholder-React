@@ -53,7 +53,7 @@ export default function Users() {
       <Container>
       <Row>
         {usersData.map((user) => (
-          <Col key={user.id} md={6} lg={3}>
+          <Col key={user.id} sm={6} md={4} lg={3}>
             <NewCard style={{ marginBottom: '20px'}}>
               <Card.Body>
                 <Card.Title>{user.name} ({user.username})</Card.Title>

@@ -15,19 +15,19 @@ const count2 = usePostStore((state) => state.count2)
 
 
   return (
-    <NavbarBS expand="lg" bg="dark" data-bs-theme="dark" >
+    <NavbarBS expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
         <NavbarBS.Brand href="/users"><Logo  src={link} alt="" /></NavbarBS.Brand>
         <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
         <NavbarBS.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link  as={NavLink} to="/users">
+            <Nav.Link className="navLink"  as={NavLink} to="/users">
               Users
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/favorites">
+            <Nav.Link className="navLink" as={NavLink} to="/favorites">
              Album Favorites<BadgeIcon>{count}</BadgeIcon>
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/post-favorites">
+            <Nav.Link className="navLink" as={NavLink} to="/post-favorites">
              Post Favorites<BadgeIcon className="badge2">{count2}</BadgeIcon>
             </Nav.Link>
           </Nav>

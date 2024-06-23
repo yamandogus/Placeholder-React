@@ -112,7 +112,11 @@ export default function Favorites() {
             ))}
           </Row>
         ) : (
+          <>
           <Empty>Favorites box is empty</Empty>
+          <img className="img-fluid" alt="Responsive image" src="https://cdni.iconscout.com/illustration/premium/thumb/search-result-not-found-2130355-1800920.png" />
+          </>
+          
         )}
       </Container>
     </>

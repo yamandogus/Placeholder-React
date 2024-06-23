@@ -1,0 +1,16 @@
+.postsCont{
+    @media(max-width: 592px){
+        max-width: 100%;
+    }
+}
+
+
+.commnets-card{
+    background-color: rgb(210,232,255);
+    width: 18rem;
+    margin: 1rem;
+    @media(max-width: 592px){
+        max-width: 90%;
+        margin: 10px auto;
+    }
+}
