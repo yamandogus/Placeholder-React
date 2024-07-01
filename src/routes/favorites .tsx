@@ -36,6 +36,7 @@ interface AlbumsProps {
   decreaseCount: () => void;
 }
 
+
 export const useAlbumStore = create<AlbumsProps>()(
   persist(
     (set) => ({

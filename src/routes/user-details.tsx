@@ -5,7 +5,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { ButonNew, PostList, UsersContainer } from "./styled-components/styled";
 import { GrUpdate } from "react-icons/gr";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 
 export interface User {
@@ -126,11 +126,19 @@ export default function UserDetailsPage() {
   const [todos, setTodos] = useState<TodosPorps[]>([]);
   const addPosts = usePostStore((state) => state.addPosts);
   const increaceCount = usePostStore((state) => state.increaceCount)
+  const [color, setColor] = useState<number[]>([]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleLike = (post: PostsProps)=> {
-   addPosts(post);
-   increaceCount();
+  const handleLike = (post: PostsProps) => {
+    if (post.id !== undefined) {
+      addPosts(post);
+      increaceCount();
+      setColor((prevLikedPosts) =>
+        prevLikedPosts.includes(post.id)
+          ? prevLikedPosts.filter((postId) => postId !== post.id)
+          : [...prevLikedPosts, post.id as number]
+      );
+    }
   }
 
   useEffect(() => {
@@ -193,10 +201,17 @@ export default function UserDetailsPage() {
                  Comments Details
                 </Link>
                 </ButonNew>
-                <FaRegHeart id="heart1" style={{
-                  fontSize:"30px",
-                  marginLeft:"150px"
-                }} onClick={()=> handleLike(post)} />
+                {post.id !== undefined &&(
+                  <FaHeart id="heart1" style={{
+                    fontSize:"30px",
+                    marginLeft:"150px",
+                    color: color.includes(post.id) ? "red" : "black",
+                    pointerEvents: color.includes(post.id as number) ? "none" : "auto",
+                  }} 
+                  
+                  onClick={()=> handleLike(post)} 
+                  />
+                )} 
               </PostList>
             ))}
           </Tab>

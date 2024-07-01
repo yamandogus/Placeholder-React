@@ -52,6 +52,7 @@ export default function AlbumsPage() {
   const addFavorite = useAlbumStore((state) => state.addFavorite);
   const increaceCount = useAlbumStore((state)=> state.increaceCount);
   const[showAlert, setShowAlert] = useState<ShowProps>({show: false, type:"success", message: ""})
+  const[color, setColor] = useState<number[]>([])
 
   const closeAlert = () => {
     setTimeout(() => {
@@ -60,10 +61,15 @@ export default function AlbumsPage() {
   }
 
   const handleLike = (album: AlbumsProps) => {
-    addFavorite(album);
-    increaceCount()
-    setShowAlert({show: true, type: "success", message: "album added"})
-    closeAlert()
+if(album.id !== undefined){
+  addFavorite(album);
+  increaceCount()
+  setShowAlert({show: true, type: "success", message: "album added"})
+  closeAlert()
+  setColor((prevColor)=>
+    prevColor.includes(album.id) ? prevColor.filter((albumId)=> albumId !== album.id): [...prevColor, album.id as number]
+  )
+}
   };
 
 
@@ -100,7 +106,10 @@ export default function AlbumsPage() {
                   justifyContent:"center"
                 }}>
                   <AiFillHeart 
-                    style={{fontSize: "30px", cursor: "pointer" }}
+                    style={{fontSize: "30px", cursor: "pointer",
+                      color: color.includes(album.id) ? "red" : "black",
+                      pointerEvents: color.includes(album.id as number) ?"none" : "auto",
+                    }}
                     onClick={() => handleLike(album)}
                   /> 
                 </div>
