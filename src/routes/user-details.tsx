@@ -134,7 +134,7 @@ export default function UserDetailsPage() {
       addPosts(post);
       increaceCount();
       setColor((prevLikedPosts) =>
-        prevLikedPosts.includes(post.id)
+        prevLikedPosts.includes(post.id as number)
           ? prevLikedPosts.filter((postId) => postId !== post.id)
           : [...prevLikedPosts, post.id as number]
       );
