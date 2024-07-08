@@ -14,6 +14,7 @@ export const ButonNew = styled.button`
   box-shadow: 5px 5px 0px #000;
   transition: all 0.3s ease;
   cursor: pointer;
+  align-self: center;
   &:hover {
     background-color: #fff;
     color: #ff5252;
@@ -31,6 +32,7 @@ export const ButonNew = styled.button`
     color: inherit;
   }
 `;
+
 export const Strong = styled.strong`
   display: inline-block;
   margin-right: 5px;
@@ -48,7 +50,6 @@ export const AlertDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-content: center;
   height: 30px;
 `;
 
@@ -87,6 +88,7 @@ export const BadgeIcon = styled(Badge)`
   top: -8px;
   right: -4px;
 `;
+
 //* FAVORITES STYLED COMPONENTS
 
 export const NewCard = styled(Card)`
@@ -94,6 +96,17 @@ export const NewCard = styled(Card)`
   border-radius: 10px;
   min-height: 380px;
   transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`;
+
+export const CardBody = styled(Card.Body)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 //* COMMENTS STYLED COMPONENTS
@@ -106,6 +119,7 @@ export const UserContent = styled.div`
   width: 300px;
   border: 1px solid black;
 `;
+
 export const PostContent = styled.div`
   padding: 16px;
   margin: 10px 0 10px 0;
@@ -114,8 +128,6 @@ export const PostContent = styled.div`
   width: 500px;
   border: 1px solid black;
 `;
-
-//*
 
 export const Empty = styled.h3`
   display: flex;

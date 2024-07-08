@@ -1,4 +1,13 @@
 img{
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
 }
+.userFav{
+    &:hover{
+        transform: rotateY(360deg);
+        -webkit-transform: rotate(360deg);
+        transition: transform 0.7s ease-in-out;
+        color: blue;
+    }
+}
+

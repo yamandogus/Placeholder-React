@@ -90,7 +90,7 @@ export default function Favorites() {
           <Row>
             <h2 className="text-center mt-3">Favorites Page</h2>
             {favorites.map((album) => (
-              <Col xs={12} sm={6} md={4} lg={3} key={album.id} className="mb-4">
+              <Col xs={12} sm={6} md={4} lg={3} key={album.id} className="mb-4 cardImg">
                 <NewCard>
                   <Card.Img
                     variant="top"
